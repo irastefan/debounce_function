@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Function Debounce</title>
+    </head>
+    <body>
+        <input type="text" value="" class="search-input" />
+
+        <script>
+            const debounce = (fn, ms) => {
+                let timeout;
+                return function () {
+                    const fnCall = () => {
+                        fn.apply(this, arguments);
+                    }
+                    clearTimeout(timeout);
+                    timeout = setTimeout(fnCall, ms)
+                }
+            }
+
+            function onChange(e) {
+                console.log(e.target.value);
+            }
+
+            onChange = debounce(onChange, 500);
+
+            const searchInput = document.querySelector('.search-input');
+
+            searchInput.addEventListener('keyup', onChange);
+
+        </script>
+    </body>
+</html>
